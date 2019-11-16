@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -17,7 +18,6 @@ public class Quiz extends AppCompatActivity
     private TextView question;
     private TextView scoreText;
     private TextView questionNumber;
-    private RadioGroup rbg;
     private RadioButton rb1;
     private RadioButton rb2;
     private RadioButton rb3;
@@ -40,7 +40,6 @@ public class Quiz extends AppCompatActivity
         question = findViewById(R.id.question);
         questionNumber = findViewById(R.id.question_number);
         scoreText = findViewById(R.id.score);
-        rbg = findViewById(R.id.radio_group);
         rb1 = findViewById(R.id.option_1);
         rb2 = findViewById(R.id.option_2);
         rb3 = findViewById(R.id.option_3);
@@ -57,7 +56,10 @@ public class Quiz extends AppCompatActivity
 
     public void showQuestion()
     {
-        rbg.clearCheck();
+        rb1.setChecked(false);
+        rb2.setChecked(false);
+        rb3.setChecked(false);
+        rb4.setChecked(false);
         aSwitch.setChecked(false);
 
         if(position < questionList.size())
@@ -67,13 +69,19 @@ public class Quiz extends AppCompatActivity
             if(currentQuestion.getSwitcherPosition() != -1)
             {
                 aSwitch.setVisibility(View.VISIBLE);
-                rbg.setVisibility(View.INVISIBLE);
+                rb1.setVisibility(View.INVISIBLE);
+                rb2.setVisibility(View.INVISIBLE);
+                rb3.setVisibility(View.INVISIBLE);
+                rb4.setVisibility(View.INVISIBLE);
             }
 
             else
             {
                 aSwitch.setVisibility(View.INVISIBLE);
-                rbg.setVisibility(View.VISIBLE);
+                rb1.setVisibility(View.VISIBLE);
+                rb2.setVisibility(View.VISIBLE);
+                rb3.setVisibility(View.VISIBLE);
+                rb4.setVisibility(View.VISIBLE);
                 rb1.setText(currentQuestion.getOption1());
                 rb2.setText(currentQuestion.getOption2());
                 rb3.setText(currentQuestion.getOption3());
@@ -94,7 +102,10 @@ public class Quiz extends AppCompatActivity
 
     public void clearAnswer(View view)
     {
-        rbg.clearCheck();
+        rb1.setChecked(false);
+        rb2.setChecked(false);
+        rb3.setChecked(false);
+        rb4.setChecked(false);
         aSwitch.setChecked(false);
     }
 
@@ -117,11 +128,26 @@ public class Quiz extends AppCompatActivity
 
         else
         {
-            RadioButton rbSelected = findViewById(rbg.getCheckedRadioButtonId());
-            int userAnswer = rbg.indexOfChild(rbSelected) + 1;
+            String userAnswer = "";
 
-            if(userAnswer == currentQuestion.getRightAnswer())
+            if(rb1.isChecked())
+                userAnswer += "A";
+
+            if(rb2.isChecked())
+                userAnswer += "B";
+
+            if(rb3.isChecked())
+                userAnswer += "C";
+
+            if(rb4.isChecked())
+                userAnswer += "D";
+
+
+            if(userAnswer.equals(currentQuestion.getRightAnswer()))
+            {
                 score++;
+            }
+
 
             else
                 score-=1000;

@@ -1,21 +1,21 @@
 package zientek.lukasz.quizapp;
 
-public class Question
+class Question
 {
     private String question;
     private String option1;
     private String option2;
     private String option3;
     private String option4;
-    private int rightAnswer;
+    private String rightAnswer;
     private int switcherPosition;
 
-    public Question()
+    Question()
     {
 
     }
 
-    public Question(String question, String option1, String option2, String option3, String option4, int rightAnswer, int switcherPosition)
+    public Question(String question, String option1, String option2, String option3, String option4, String rightAnswer, int switcherPosition)
     {
         this.question = question;
         this.option1 = option1;
@@ -66,11 +66,11 @@ public class Question
         this.option4 = option4;
     }
 
-    public int getRightAnswer() {
+    public String getRightAnswer() {
         return rightAnswer;
     }
 
-    public void setRightAnswer(int rightAnswer) {
+    public void setRightAnswer(String rightAnswer) {
         this.rightAnswer = rightAnswer;
     }
 

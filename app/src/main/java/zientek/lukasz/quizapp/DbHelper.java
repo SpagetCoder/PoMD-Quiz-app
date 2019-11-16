@@ -37,7 +37,7 @@ public class DbHelper extends SQLiteOpenHelper
                 QuizContract.QuestionsTable.COLUMN_OPTION2 + " TEXT, " +
                 QuizContract.QuestionsTable.COLUMN_OPTION3 + " TEXT, " +
                 QuizContract.QuestionsTable.COLUMN_OPTION4 + " TEXT, " +
-                QuizContract.QuestionsTable.COLUMN_RIGHT_ANSWER + " INTEGER, " +
+                QuizContract.QuestionsTable.COLUMN_RIGHT_ANSWER + " TEXT, " +
                 QuizContract.QuestionsTable.COLUMN_SWITCHER_POSITION + " INTEGER " + ")";
 
 
@@ -55,14 +55,20 @@ public class DbHelper extends SQLiteOpenHelper
 
     private void fillQuestions()
     {
-        Question q1 = new Question("Which mobile operating system is the best?", "Android" , "Windows Phone", "iOS","Symbian OS", 1, -1);
+        Question q1 = new Question("Which mobile operating system is the best?", "Android" , "Windows Phone", "iOS","Symbian OS", "A", -1);
         addQuestion(q1);
-        Question q2 = new Question("Is android the best? (Set the switch on to answer yes, leave to answer no)", "A" , "B", "C","D", 2, 1);
+        Question q2 = new Question("Is android the best?", null , null, null,null, null, 1);
         addQuestion(q2);
-        Question q3 = new Question("Is iPhone any good? (Set the switch on to answer yes, leave to answer no)", "A" , "B", "C","D", 3, 0);
+        Question q3 = new Question("Are iPhones any good?", null , null, null,null, null, 0);
         addQuestion(q3);
-        Question q4 = new Question("D je oke", "A" , "B", "C","D", 4, -1);
+        Question q4 = new Question("Which mobile phone manufacturers are the best?", "Apple" , "Xiaomi", "OnePlus","OPPO", "BCD", -1);
         addQuestion(q4);
+        Question q5 = new Question("Why android phones are better than iPhones?", "They work" , "Customization", "USB-C","Headphone jack", "ABCD", -1);
+        addQuestion(q5);
+        Question q6 = new Question("If you could buy an iPhone, would you do it?", "Nope" , "Never", "Absolutely not","No.", "ABCD", -1);
+        addQuestion(q6);
+        Question q7 = new Question("Which procesor is used in OnePlus 6T?", "Snapdragon 855" , "Snapdragon 845", "MAD2WD1","A7", "B", -1);
+        addQuestion(q7);
     }
 
     private void addQuestion(Question question)
@@ -93,7 +99,7 @@ public class DbHelper extends SQLiteOpenHelper
                 question.setOption2(cursor.getString(cursor.getColumnIndex(QuizContract.QuestionsTable.COLUMN_OPTION2)));
                 question.setOption3(cursor.getString(cursor.getColumnIndex(QuizContract.QuestionsTable.COLUMN_OPTION3)));
                 question.setOption4(cursor.getString(cursor.getColumnIndex(QuizContract.QuestionsTable.COLUMN_OPTION4)));
-                question.setRightAnswer(cursor.getInt(cursor.getColumnIndex(QuizContract.QuestionsTable.COLUMN_RIGHT_ANSWER)));
+                question.setRightAnswer(cursor.getString(cursor.getColumnIndex(QuizContract.QuestionsTable.COLUMN_RIGHT_ANSWER)));
                 question.setSwitcherPosition(cursor.getInt(cursor.getColumnIndex(QuizContract.QuestionsTable.COLUMN_SWITCHER_POSITION)));
                 questionList.add(question);
 
