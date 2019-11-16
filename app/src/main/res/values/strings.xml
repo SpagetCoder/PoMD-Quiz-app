@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QuizApp</string>
+    <string name="android_master_race">Welcome to the which mobile operating system is the best and why android quiz</string>
+    <string name="take_a_quiz">Take a quiz</string>
+    <string name="clear">clear</string>
+    <string name="confim">confim</string>
+</resources>
