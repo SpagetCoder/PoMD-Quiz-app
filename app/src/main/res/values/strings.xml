@@ -4,4 +4,8 @@
     <string name="take_a_quiz">Take a quiz</string>
     <string name="clear">clear</string>
     <string name="confim">confim</string>
+    <string name="back_to_menu">Back to menu</string>
+    <string name="score">Score: </string>
+    <string name="question">Question</string>
+    <string name="your_result">Your result:</string>
 </resources>

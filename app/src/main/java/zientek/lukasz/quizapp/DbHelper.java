@@ -21,14 +21,12 @@ public class DbHelper extends SQLiteOpenHelper
     public DbHelper(@Nullable Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
     @Override
     public void onCreate(SQLiteDatabase db)
     {
         this.db = db;
-
 
         final String SQL_CREATE_QUESTIONS_TABLE = "CREATE TABLE " + QuizContract.QuestionsTable.TABLE_NAME +
                 " ( " + QuizContract.QuestionsTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -40,7 +38,6 @@ public class DbHelper extends SQLiteOpenHelper
                 QuizContract.QuestionsTable.COLUMN_RIGHT_ANSWER + " TEXT, " +
                 QuizContract.QuestionsTable.COLUMN_SWITCHER_POSITION + " INTEGER " + ")";
 
-
         db.execSQL(SQL_CREATE_QUESTIONS_TABLE);
         fillQuestions();
     }
@@ -50,7 +47,6 @@ public class DbHelper extends SQLiteOpenHelper
     {
         db.execSQL("DROP TABLE IF EXISTS " + QuizContract.QuestionsTable.TABLE_NAME);
         onCreate(db);
-
     }
 
     private void fillQuestions()
@@ -67,7 +63,7 @@ public class DbHelper extends SQLiteOpenHelper
         addQuestion(q5);
         Question q6 = new Question("If you could buy an iPhone, would you do it?", "Nope" , "Never", "Absolutely not","No.", "ABCD", -1);
         addQuestion(q6);
-        Question q7 = new Question("Which procesor is used in OnePlus 6T?", "Snapdragon 855" , "Snapdragon 845", "MAD2WD1","A7", "B", -1);
+        Question q7 = new Question("Which processor is used in OnePlus 6T?", "Snapdragon 855" , "Snapdragon 845", "MAD2WD1","A7", "B", -1);
         addQuestion(q7);
     }
 

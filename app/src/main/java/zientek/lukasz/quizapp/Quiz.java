@@ -2,6 +2,7 @@ package zientek.lukasz.quizapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Quiz extends AppCompatActivity
 {
@@ -24,12 +27,10 @@ public class Quiz extends AppCompatActivity
     private RadioButton rb4;
     private Switch aSwitch;
     private ProgressBar mProgressBar;
-
     private List<Question> questionList;
     private Question currentQuestion;
     private int position = 0;
-    private int score = 0;
-
+    private Integer score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,11 +48,9 @@ public class Quiz extends AppCompatActivity
         aSwitch = findViewById(R.id.switch_id);
         mProgressBar = findViewById(R.id.progress);
 
-
         DbHelper dbHelper = new DbHelper(this);
         questionList = dbHelper.getQuestions();
         showQuestion();
-
     }
 
     public void showQuestion()
@@ -89,7 +88,7 @@ public class Quiz extends AppCompatActivity
             }
 
             question.setText(currentQuestion.getQuestion());
-            questionNumber.setText("Question " + (position+1) + "/" + questionList.size());
+            questionNumber.setText(R.string.question + (position+1) + "/" + questionList.size());
             mProgressBar.setProgress((position+1)*100 / questionList.size());
             position++;
         }
@@ -97,6 +96,9 @@ public class Quiz extends AppCompatActivity
         else
         {
             finish();
+            Intent intent = new Intent(Quiz.this, QuizResults.class);
+            intent.putExtra("RESULTS", score.toString());
+            startActivity(intent);
         }
     }
 
@@ -111,19 +113,50 @@ public class Quiz extends AppCompatActivity
 
     public void checkAnswer(View view)
     {
-
         if(currentQuestion.getSwitcherPosition() != -1)
         {
             int rightAnswer = currentQuestion.getSwitcherPosition();
             int userAnswer = aSwitch.isChecked() ? 1 : 0;
 
             if(userAnswer == rightAnswer)
+            {
                 score++;
+                SweetAlertDialog dialog = new SweetAlertDialog(Quiz.this, SweetAlertDialog.SUCCESS_TYPE);
+                dialog.setTitle("Nice!");
+                dialog.setContentText("Score: + " + 1);
+                dialog.setCancelable(false);
+                dialog.setConfirmButton("Next", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog)
+                    {
+                        showQuestion();
+                        sweetAlertDialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
 
             else
+            {
                 score-=1000;
+                SweetAlertDialog dialog = new SweetAlertDialog(Quiz.this, SweetAlertDialog.ERROR_TYPE);
+                dialog.setTitle("Wrong!");
+                dialog.setContentText("Score: - " + 1000);
+                dialog.setCancelable(false);
+                dialog.setConfirmButton("Next", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog)
+                    {
+                        showQuestion();
+                        sweetAlertDialog.dismiss();
+                    }
+                });
 
-            scoreText.setText("Score: " + score);
+                dialog.show();
+            }
+
+            scoreText.setText(R.string.score + score);
         }
 
         else
@@ -142,20 +175,45 @@ public class Quiz extends AppCompatActivity
             if(rb4.isChecked())
                 userAnswer += "D";
 
-
             if(userAnswer.equals(currentQuestion.getRightAnswer()))
             {
                 score++;
+                SweetAlertDialog dialog = new SweetAlertDialog(Quiz.this, SweetAlertDialog.SUCCESS_TYPE);
+                dialog.setTitle("Nice!");
+                dialog.setContentText("Score: + " + 1);
+                dialog.setCancelable(false);
+                dialog.setConfirmButton("Next", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog)
+                    {
+                        showQuestion();
+                        sweetAlertDialog.dismiss();
+                    }
+                });
+
+                dialog.show();
             }
 
-
             else
+            {
                 score-=1000;
+                SweetAlertDialog dialog = new SweetAlertDialog(Quiz.this, SweetAlertDialog.ERROR_TYPE);
+                dialog.setTitle("Wrong!");
+                dialog.setContentText("Score: - " + 1000);
+                dialog.setCancelable(false);
+                dialog.setConfirmButton("Next", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog)
+                    {
+                        showQuestion();
+                        sweetAlertDialog.dismiss();
+                    }
+                });
 
-            scoreText.setText("Score: " + score);
+                dialog.show();
+            }
 
+            scoreText.setText(R.string.score + score);
         }
-
-        showQuestion();
     }
 }

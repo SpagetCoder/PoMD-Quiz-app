@@ -4,7 +4,6 @@ import android.provider.BaseColumns;
 
 public final class QuizContract
 {
-
     private QuizContract()
     {
 
@@ -20,7 +19,5 @@ public final class QuizContract
         public static final String COLUMN_OPTION4 = "option4";
         public static final String COLUMN_RIGHT_ANSWER = "right_answer";
         public static final String COLUMN_SWITCHER_POSITION = "switcher_position";
-
     }
-
 }
